@@ -6,7 +6,11 @@ export default function AppWrapper({children}) {
     // --------------------------------
     // States
     // --------------------------------
-        const [userName, setUserName] = useState("");
+        const [userLoggedIn, setUserLoggedIn] = useState(false);
+        const [userName, setUserName] = useState("SimplyD");
+        const [userFirstName, setUserFirstName] = useState("Austin");
+        const [userLastName, setUserLastName] = useState("Lily");
+        const [usersCredits, setUsersCredits] = useState(800);
 
 
     // --------------------------------
@@ -32,13 +36,22 @@ export default function AppWrapper({children}) {
         // --------------------------------
         // Shared Function Exports
         // --------------------------------
+        setUserName: value => setUserName(value),
+        setUserFirstName: value => setUserFirstName(value),
+        setUserLastName: value => setUserLastName(value),
+        setUsersCredits: value => setUsersCredits(value),
+        setUserLoggedIn: value => setUserLoggedIn(value),
 
 
         // --------------------------------
         // Shared Variable Exports
         // --------------------------------
-
         directory: directory,
+        userName: userName,
+        userFirstName: userFirstName,
+        userLastName: userLastName,
+        usersCredits: usersCredits,
+        userLoggedIn: userLoggedIn,
     }
 
     return  <AppContext.Provider value={sharedState}>{children}</AppContext.Provider>
