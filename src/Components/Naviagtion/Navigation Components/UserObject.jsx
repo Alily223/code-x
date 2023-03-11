@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useDisclosure } from '@mantine/hooks'
-import { Avatar, Badge, Burger, Group, Text, Menu } from '@mantine/core';
+import { Avatar, Badge, Burger, Group, Text, Menu , createStyles } from '@mantine/core';
 import { useAppContext } from '../../../context';
 import { IconSettings , IconUser, IconDeviceDesktopAnalytics} from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
+
+const useStyles = createStyles((theme) => ({
+    item: {
+      '&[data-hovered]': {
+        backgroundColor: theme.colors[theme.primaryColor][theme.fn.primaryShade()],
+        color: theme.white,
+      },
+    },
+  }));
 
 const UserObject = () => {
   const { usersCredits, userName, userLoggedIn } = useAppContext();
   const [opened, { toggle }] = useDisclosure(false);
-  const [menuOpened, setMenuOpened] = useState(true);
   const label = opened ? 'Close navigation' : 'Open navigation';
   const rootStyles = getComputedStyle(document.documentElement);
+  const navigate = useNavigate();
+
+  const { classes } = useStyles();
   
   const darkThemeBBlack = rootStyles.getPropertyValue('--dark-theme-bblack');
   const darkThemeRed = rootStyles.getPropertyValue('--dark-theme-red');
@@ -19,14 +31,14 @@ const UserObject = () => {
 
   return (
     <Group spacing="xl">
-        <Menu shadow="md" width={200} position="bottom-start" offset={36}>
+        <Menu classNames={classes} shadow="md" width={200} position="bottom-start" offset={36} theme={{ colorScheme: 'dark'}}>
             <Menu.Target>
                 <Burger opened={opened} onClick={toggle} aria-label={label} color="red"/>
             </Menu.Target>
-            <Menu.Dropdown style={{backgroundColor:"rgba(1,1,1,0.7)"}}>
-                <Menu.Item icon={<IconUser size="14"/>} color="blue">Profile</Menu.Item>
-                <Menu.Item icon={<IconDeviceDesktopAnalytics size="14"/>} color="blue">Stats</Menu.Item>
-                <Menu.Item icon={<IconSettings size="14"/>} color="blue" >Settings</Menu.Item>
+            <Menu.Dropdown style={{backgroundColor:"rgba(1,1,1,1)"}}>
+                <Menu.Item icon={<IconUser size="14"/>} color="blue" onClick={() => navigate("/UserProfile")}>Profile</Menu.Item>
+                <Menu.Item icon={<IconDeviceDesktopAnalytics size="14"/>} color="blue" onClick={() => navigate("/UserStats")}>Stats</Menu.Item>
+                <Menu.Item icon={<IconSettings size="14"/>} color="blue" onClick={() => navigate("/UserSettings")}>Settings</Menu.Item>
             </Menu.Dropdown>
         </Menu>
         

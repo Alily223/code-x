@@ -2,11 +2,13 @@ import React from 'react'
 import { Grid , Container} from '@mantine/core';
 
 import UserObject from './Navigation Components/UserObject';
+import { useNavigate } from 'react-router-dom';
+
 
 const Navigation = () => {
-  
+    const navigate = useNavigate();
 
-  return (
+    return (
     <>
         <nav>
             <div className="Navigation-Wrapper">
@@ -24,7 +26,9 @@ const Navigation = () => {
                         </Grid.Col>
 
                         <Grid.Col span="auto" align="end">
-                            <div className='Right-Column-Navigation'>Right-Column-Navigation</div>
+                            <div className='Right-Column-Navigation'>
+                                <button onClick={()=> navigate("/")}>Temp Home</button>
+                            </div>
                         </Grid.Col>
 
                     </Grid>
@@ -32,8 +36,8 @@ const Navigation = () => {
             </div>
         </nav>
     </>
-    
-  )
+
+    )
 }
 
 export default Navigation
